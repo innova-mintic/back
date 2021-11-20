@@ -1,6 +1,6 @@
 import { Schema, model, SchemaTimestampsConfig } from "mongoose";
-import { ProjectModel } from "./proyect";
-import { UserModel } from "./user";
+import { ProyectoModel } from "./proyect";
+import { UsuarioModel } from "./user";
 
 interface Avance{
     fecha:Date,
@@ -26,12 +26,12 @@ const avanceSchema=new Schema<Avance>({
     ],
     proyecto:{
         type:Schema.Types.ObjectId,
-        ref: ProjectModel,
+        ref: ProyectoModel,
         required:true, 
     },
     creadoPor:{
         type: Schema.Types.ObjectId,
-        ref:UserModel,
+        ref:UsuarioModel,
         required:true,
     },
 });

@@ -1,8 +1,7 @@
 import {connect} from 'mongoose';
 
 const conectarBD = async () => {
-return await connect("mongodb+srv://innova:admin@cluster0.7qzcg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    )
+return await connect(process.env.DATABASE_URL)
     .then(()=>{
         console.log('Conexion exitosa');
 

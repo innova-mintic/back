@@ -2,7 +2,7 @@ import {Schema, model} from 'mongoose';
 import {Enum_Rol,Enum_EstadoUsuario} from './enums';
 
 
-interface User{
+interface Usuario{
     correo:string,
     identificacion:string,
     nombre:string,
@@ -11,7 +11,7 @@ interface User{
     estado:Enum_EstadoUsuario
 }
 
-const userSchema = new Schema<User> ({
+const usuarioSchema = new Schema<Usuario> ({
 
     correo:{
         type:String,
@@ -48,13 +48,13 @@ const userSchema = new Schema<User> ({
     },
     estado:{
         type:String,
-        default:Enum_EstadoUsuario.pendiente,
+        default:Enum_EstadoUsuario.PENDIENTE,
         enum:Enum_EstadoUsuario,
 
     }
 });
 
 
-const UserModel = model('User',userSchema);
+const UsuarioModel = model('Usuario',usuarioSchema,"usuarios");
 
-export {UserModel};
+export {UsuarioModel};

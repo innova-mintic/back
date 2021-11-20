@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { Enum_EstadoInscripcion } from "./enums";
-import { ProjectModel } from "./proyect";
-import { UserModel } from "./user";
+import { ProyectoModel } from "./proyect";
+import { UsuarioModel } from "./user";
 
 
 interface Inscripcion{
@@ -28,12 +28,12 @@ const InscripcionSchema=new Schema<Inscripcion>({
     },
     proyecto:{
         type:Schema.Types.ObjectId,
-        ref:ProjectModel,
+        ref:ProyectoModel,
         required:true
     },
     estudiante:{
         type:Schema.Types.ObjectId,
-        ref:UserModel,
+        ref:UsuarioModel,
         required:true,
     }
 })

@@ -1,90 +1,25 @@
-import conectarBD from "./db/db";
-import {UserModel} from "./models/user";
-import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums";
-import { ProjectModel } from "./models/proyect";
-import { ObjectId } from "mongoose";
-import { ObjectiveModel } from "./models/objective";
-    
+import express from 'express';
+import cors from 'cors';
+import {ApolloServer} from 'apollo-server-express';
+import dotenv from 'dotenv';
+import conectarBD from './db/db';
+import {typeDefs} from './graphql/types'
+import {resolvers } from './graphql/resolvers'
+dotenv.config();
 
-const main = async () =>{
+const server= new ApolloServer({
+    typeDefs:typeDefs,
+    resolvers:resolvers,
+})
+
+const app= express();
+
+app.use(express.json());
+
+app.listen({port:process.env.PORT || 4000},async()=>{
     await conectarBD();
+    await server.start();
 
-
-    const usuarioInicial= await UserModel.create({
-        nombre:'Fulano', 
-        apellido:'lano',
-        correo:'fulano@hotmail.com',
-        identificacion:'12334' ,
-        rol: Enum_Rol.administrador,
-        estado: Enum_EstadoUsuario.autorizado,
-    });
-
-    const proyectoCreado= await ProjectModel.create({
-        nombre:"Proyecto 1",
-        presupuesto:120,
-        fechaInicio: Date.now(),
-        fechaFin: new Date("2022/11/10"),
-        lider:usuarioInicial._id,
-        objetivos:[
-            {descripcion:"Objetivo general",tipo:Enum_TipoObjetivo.general },
-            {descripcion:"Objetivo esp 1",tipo:Enum_TipoObjetivo.especifico },   
-            {descripcion:"Objetivo esp 2",tipo:Enum_TipoObjetivo.especifico },
-        ],
-    });
-
-    const consultarProyecto = await ProjectModel.find({nombre:"Proyecto 1"})
-    console.log('el proyecto es:',consultarProyecto);
-
-};
-
-main();
-
-    //C R U D    U S U A R I O S 
-/*     //CREAR USUARIO
-    await UserModel.create({
-        correo:"besttss@hot.com",
-        identificacion:"33310",
-        nombre:"bes",
-        apellido:"acas",
-        rol:Enum_Rol.lider,
-        })
-        .then((u)=>{
-            console.log("usuario creado",u);
-        })
-        .catch(e=>{
-            console.log("Error creado el usuario",e)
-        });
-
-    // OBTENER LOS USUARIOS
-    await UserModel.find().then((u)=>{
-        console.log("usuarios",u);
-        }).catch(e=>{
-            console.error("error obteniendo los usuarios",e)
-        });
-
-
-
-    //EDITAR UN USUARIO
-    await UserModel.findOneAndUpdate(
-        {correo:"andres@hot.com"},
-    {
-        nombre:"Juan",
-        apellido:"Lopez",
-        })
-        .then((u)=>{
-            console.log("usuario actualizado",u);
-        })
-        .catch(e=>()=>{
-            console.error("error actualizando",e);
-        });
-
-    //ELIMINAR UN USUARIO
-    await UserModel.findOneAndDelete(
-        {correo:"andres@hot.com"})
-        .then((u)=>{
-            console.log("usuario eliminado",u);
-        })
-        .catch(e=>()=>{
-            console.error("error eliminando",e);
-        }); */
-
+    server.applyMiddleware({ app });
+    console.log("servidor listo")
+})
