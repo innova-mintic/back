@@ -1,31 +1,45 @@
 import conectarBD from "./db/db";
 import {UserModel} from "./models/user";
-import { Enum_Rol } from "./models/enums";
+import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums";
 import { ProjectModel } from "./models/proyect";
 import { ObjectId } from "mongoose";
+import { ObjectiveModel } from "./models/objective";
     
 
 const main = async () =>{
     await conectarBD();
 
-/*     ProjectModel.create({
+
+    const usuarioInicial= await UserModel.create({
+        nombre:'Fulano', 
+        apellido:'lano',
+        correo:'fulano@hotmail.com',
+        identificacion:'12334' ,
+        rol: Enum_Rol.administrador,
+        estado: Enum_EstadoUsuario.autorizado,
+    });
+
+    const proyectoCreado= await ProjectModel.create({
         nombre:"Proyecto 1",
         presupuesto:120,
         fechaInicio: Date.now(),
         fechaFin: new Date("2022/11/10"),
-        lider:'619807960c80d61016e688e2'
-    }) */
+        lider:usuarioInicial._id,
+        objetivos:[
+            {descripcion:"Objetivo general",tipo:Enum_TipoObjetivo.general },
+            {descripcion:"Objetivo esp 1",tipo:Enum_TipoObjetivo.especifico },   
+            {descripcion:"Objetivo esp 2",tipo:Enum_TipoObjetivo.especifico },
+        ],
+    });
 
-    const proyecto: any = await ProjectModel.find({nombre:"Proyecto 1"});
-    console.log('el proyecto es:', proyecto, proyecto[0].lider);
+    const consultarProyecto = await ProjectModel.find({nombre:"Proyecto 1"})
+    console.log('el proyecto es:',consultarProyecto);
 
-    const lider = await UserModel.find({_id:proyecto[0].lider});
-    console.log('el lider del proyecto es:', lider);
 };
 
 main();
 
-        //C R U D    U S U A R I O S 
+    //C R U D    U S U A R I O S 
 /*     //CREAR USUARIO
     await UserModel.create({
         correo:"besttss@hot.com",
@@ -73,3 +87,4 @@ main();
         .catch(e=>()=>{
             console.error("error eliminando",e);
         }); */
+

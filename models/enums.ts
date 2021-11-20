@@ -23,4 +23,15 @@ enum Enum_FaseProyecto{
     nula=""
 }
 
-export {Enum_Rol,Enum_EstadoUsuario, Enum_FaseProyecto,Enum_EstadoProyecto};
+enum Enum_TipoObjetivo{
+    general="General",
+    especifico="Especifico",
+}
+
+enum Enum_EstadoInscripcion{
+    aceptada="Aceptada",
+    rechazada="Rechazada",
+}
+
+
+export {Enum_Rol,Enum_EstadoUsuario, Enum_FaseProyecto,Enum_EstadoProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion };
