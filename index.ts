@@ -3,18 +3,23 @@ import cors from 'cors';
 import {ApolloServer} from 'apollo-server-express';
 import dotenv from 'dotenv';
 import conectarBD from './db/db';
-import {typeDefs} from './graphql/types'
+import {tipos} from './graphql/tipos'
 import {resolvers } from './graphql/resolvers'
+
+
 dotenv.config();
 
 const server= new ApolloServer({
-    typeDefs:typeDefs,
+    typeDefs:tipos,
     resolvers:resolvers,
 })
 
 const app= express();
 
 app.use(express.json());
+app.use(cors());
+
+
 
 app.listen({port:process.env.PORT || 4000},async()=>{
     await conectarBD();

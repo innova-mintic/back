@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
-import { Enum_EstadoProyecto, Enum_FaseProyecto, Enum_TipoObjetivo } from './enums';
-import { UsuarioModel } from './user';
+import { Enum_EstadoProyecto, Enum_FaseProyecto, Enum_TipoObjetivo } from '../enums/enums';
+import { UsuarioModel } from '../usuario/usuario';
 
 interface Proyecto{
     nombre:string,

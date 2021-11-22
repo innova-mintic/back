@@ -1,7 +1,7 @@
 import conectarBD from "./db/db";
-import {UsuarioModel} from "./models/user";
-import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums";
-import { ProyectoModel } from "./models/proyect";
+import {UsuarioModel} from "./models/usuario/usuario";
+import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums/enums";
+import { ProyectoModel } from "./models/proyecto/proyecto";
 import { ObjectId } from "mongoose";
 import { ObjectiveModel } from "./models/objective";
     
