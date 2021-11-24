@@ -1,11 +1,11 @@
-import { ProyectoModel } from "./proyecto";
+import { ProyectoModel } from "./proyecto.js";
 
 const resolversProyecto ={
 
     Query:{
 
         Proyectos: async(parent,args)=>{
-            const proyectos=await ProyectoModel.find().populate('lider');
+            const proyectos=await ProyectoModel.find().populate('lider').populate('avances').populate('inscripciones');
             return proyectos;
         }
     },

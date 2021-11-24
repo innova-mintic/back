@@ -1,4 +1,4 @@
-import { AvanceModel } from "./avance"
+import { AvanceModel } from "./avance.js"
 
 
 const resolversAvances={

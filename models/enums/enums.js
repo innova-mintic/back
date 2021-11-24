@@ -1,4 +1,4 @@
-
+/* 
 enum Enum_Rol{
     ESTUDIANTE="ESTUDIANTE",
     LIDER="LIDER",
@@ -29,9 +29,9 @@ enum Enum_TipoObjetivo{
 }
 
 enum Enum_EstadoInscripcion{
-    aceptada="Aceptada",
-    rechazada="Rechazada",
+    ACEPTADO="ACEPTADA",
+    RECHAZADA="RECHAZADA",
 }
 
 
-export {Enum_Rol,Enum_EstadoUsuario, Enum_FaseProyecto,Enum_EstadoProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion };
+export {Enum_Rol,Enum_EstadoUsuario, Enum_FaseProyecto,Enum_EstadoProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion }; */

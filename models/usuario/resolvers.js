@@ -1,4 +1,4 @@
-import { UsuarioModel } from "./usuario";
+import { UsuarioModel } from "./usuario.js";
 
 const resolversUsuario ={
 
