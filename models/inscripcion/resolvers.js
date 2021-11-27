@@ -14,10 +14,10 @@ const resolversInscripcion={
                 proyecto:args.proyecto,
                 estudiante:args.estudiante,
             });
-
             if(Object.keys(args).includes('estado')){
                 inscripcionCreada.estado=args.estado;
             }
+
             return inscripcionCreada;
         },
 
@@ -25,7 +25,9 @@ const resolversInscripcion={
             const inscripcionAprobada= await InscripcionModel.findByIdAndUpdate(args._id,{
                 estado:"ACEPTADO",
                 fechaIngreso:Date.now(),
-            });
+            },
+                {new:true}
+            );
             return inscripcionAprobada;
         }
     }

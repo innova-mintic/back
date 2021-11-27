@@ -54,8 +54,10 @@ const resolversUsuario ={
                 identificacion:args.identificacion,
                 correo:args.correo,
                 rol:args.rol,  
-                estado:args.estado              
-            });
+                estado:args.estado,              
+            },
+              {new:true}  
+            );
             return usuarioEditado     
         },
 
