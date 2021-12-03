@@ -9,7 +9,7 @@ const proyectoSchema = new Schema ({
         required:true,
     },
     presupuesto:{
-        type:Number,
+        type:String,
         required:true,
     },
     fechaInicio:{
@@ -18,7 +18,7 @@ const proyectoSchema = new Schema ({
     },
     fechaFin:{
         type:Date,
-        required:true,
+        required:false,
     },
     estado:{
         type:String,
@@ -55,6 +55,7 @@ const proyectoSchema = new Schema ({
     }
 );
 
+/* Los virtual se hacen en la parte many de la relacion */
 proyectoSchema.virtual("avances",{
     ref:"Avance",
     localField:"_id",

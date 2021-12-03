@@ -23,10 +23,10 @@ const resolversUsuario ={
                 identificacion:args.identificacion,
                 correo:args.correo,
                 rol:args.rol,
-            });
-
+            }   
+            );
             if(Object.keys(args).includes('estado')){
-                usuarioCreado.estado=args.estado;
+                usuarioCreado.estado=args.estado;             
             }
 
             return  usuarioCreado;
@@ -57,7 +57,7 @@ const resolversUsuario ={
             },
               {new:true}  
             );
-            return usuarioEditado     
+            return usuarioEditado;     
         },
 
     }
