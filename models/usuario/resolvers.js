@@ -3,9 +3,9 @@ import { UsuarioModel } from "./usuario.js";
 const resolversUsuario ={
 
     Query:{
+        /* HU_004:Como ADMINISTRADOR, QUERY para ver la información de los usuarios registrados en la plataforma */
         Usuarios: async (parent,args)=>{
             const usuarios=await UsuarioModel.find();
-
             return usuarios;
         },
 
@@ -13,6 +13,13 @@ const resolversUsuario ={
             const usuario=await UsuarioModel.findOne({_id:args._id});
             return usuario;
         },
+
+        /* HU_010:Como LIDER, QUERY para ver la información de los estudiantes registrados en la plataforma */
+        Estudiantes: async (parent,args)=>{
+            const estudiantes=await UsuarioModel.find({rol:'ESTUDIANTE'});
+            return estudiantes;
+        },
+        
 
     },
     Mutation:{
@@ -46,19 +53,44 @@ const resolversUsuario ={
                 return usuarioEliminado;
             }  
         },
-
-        editarUsuario:  async(parent,args)=>{
-            const usuarioEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
+        
+        /* HU_003:Como USUARIO, MUTATION para editar la información personal del perfil */
+        editarPerfil:  async(parent,args)=>{
+            const perfilEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
                 nombre:args.nombre,
                 apellido:args.apellido,
                 identificacion:args.identificacion,
-                correo:args.correo,
+                correo:args.correo,            
+            },
+                {new:true}  
+            );
+            return perfilEditado;     
+        },
+        
+        /* HU_005:Como ADMINISTRADOR, MUTATION para cambiar el estado de un usuario */
+        editarUsuario:  async(parent,args)=>{
+            const usuarioEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
                 estado:args.estado,              
             },
               {new:true}  
             );
             return usuarioEditado;     
         },
+
+        /* HU_011:Como LIDER, MUTATION para cambiar el estado de un estudiante */
+        editarEstudiante:  async(parent,args)=>{
+            const estudianteEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
+                estado:args.estado,              
+            },
+                {new:true}  
+            );
+            return estudianteEditado;     
+        },
+
+
+
+
+
 
     }
 

@@ -15,7 +15,7 @@ const tiposUsuario= gql`
     type Query{
         Usuarios:[Usuario]
         Usuario(_id:String!):Usuario
-        
+        Estudiantes:[Usuario]
     }
 
     type Mutation{
@@ -35,12 +35,26 @@ const tiposUsuario= gql`
 
         editarUsuario(
             _id:String!
+            estado:Enum_EstadoUsuario!
+        ):Usuario
+        
+        editarEstudiante(
+            _id:String!
+            estado:Enum_EstadoUsuario!
+        ):Usuario
+        
+        
+        editarPerfil(
+            _id:String!
             nombre:String!
             apellido:String!
             identificacion:String!
             correo:String!
-            estado:Enum_EstadoUsuario!
         ):Usuario
+
+
+
+
 
     }
 `;

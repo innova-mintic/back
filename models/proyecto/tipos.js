@@ -21,7 +21,7 @@ const tiposProyecto= gql`
         tipo:Enum_TipoObjetivo!
     }
 
-    input camposProyecto{
+"""     input camposProyecto{
         nombre:String
         presupuesto:String
         fechaInicio:Date
@@ -29,8 +29,7 @@ const tiposProyecto= gql`
         estado: Enum_EstadoProyecto
         fase: Enum_FaseProyecto
         lider:String
-    }
-
+    } """
 
     type Proyecto{
         _id:ID!
@@ -50,6 +49,7 @@ const tiposProyecto= gql`
 
         Proyectos:[Proyecto]
         Proyecto(_id:String!):Proyecto
+        ProyectosLiderados:[Proyecto]
     }
 
     type Mutation{
@@ -65,15 +65,10 @@ const tiposProyecto= gql`
             objetivos:[crearObjetivo]
         ):Proyecto
 
-        editarProyecto(
+        aprobarProyecto(
             _id:String!,
-            nombre:String
-            presupuesto:String
-            fechaInicio:Date
-            fechaFin:Date
-            estado: Enum_EstadoProyecto
-            fase: Enum_FaseProyecto
-            lider:String
+            estado: Enum_EstadoProyecto!
+            fase: Enum_FaseProyecto!
         ):Proyecto
 
         crearObjetivo(idProyecto:String!, campos:camposObjetivo!):Proyecto
