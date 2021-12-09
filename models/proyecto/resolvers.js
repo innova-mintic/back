@@ -1,12 +1,15 @@
 import { ProyectoModel } from "./proyecto.js";
 
+
 const resolversProyecto ={
 
     Query:{
 
         /* HU_006:Como ADMINISTRADOR, QUERY para ver la lista de proyectos registrados */
         Proyectos: async(parent,args)=>{
-            const proyectos=await ProyectoModel.find().populate('lider').populate('avances').populate('inscripciones');
+            const proyectos=await ProyectoModel.find().populate([
+                { path:'lider'},{ path:'avances'},{path:'inscripciones', populate:{path:'estudiante'}},
+            ])
             return proyectos;
         },
 
@@ -15,13 +18,14 @@ const resolversProyecto ={
             return proyecto;
         },
 
+        
+        FiltrarProyectoPorLider:async(parents,args)=>{
+            const filtrarProyectoPorLider=await ProyectoModel.find({'lider':args._id}).populate('lider');
+            return filtrarProyectoPorLider
+        }
 
-        /* HU_013:Como LIDER, QUERY para ver la lista de proyectos que se lideran */
-        ProyectosLiderados: async(parent,args)=>{
-            const proyectosLideradores=await ProyectoModel.find().populate('avances').populate('inscripciones');
-            return proyectosLideradores;
-        },
     },
+
 
     Mutation:{
 
@@ -40,7 +44,15 @@ const resolversProyecto ={
             return proyectoCreado;
         },
 
-        /* HU_007,HU_008, HU_009 :Como ADMINISTRADOR, MUTATION para cabmbiar el estado o fase un proyecto */
+        /* HU_012:Como LIDER, MUTATION para crear un nuevo proyecto */
+       crearObjetivo: async(parent,args)=>{
+           const proyectoConObjetivo= await ProyectoModel.findByIdAndUpdate(args.idProyecto,{
+               $addToSet:{  objetivos:{...args.campos}  }
+               },{new:true});
+           return proyectoConObjetivo;
+       },
+
+        /* HU_007,HU_008, HU_009 :Como ADMINISTRADOR, MUTATION para cambiar el estado o fase un proyecto */
         aprobarProyecto:  async(parent,args)=>{
             const aprobarProyecto= await ProyectoModel.findByIdAndUpdate(args._id,{
                 fase: args.fase,
@@ -51,13 +63,19 @@ const resolversProyecto ={
             return aprobarProyecto;     
         },
 
-        crearObjetivo: async(parent,args)=>{
-            const proyectoConObjetivo= await ProyectoModel.findByIdAndUpdate(args.idProyecto,{
-                $addToSet:{  objetivos:{...args.campos}  }
-                },{new:true});
-            return proyectoConObjetivo;
-        },
-
+        /* HU_014:Como LIDER, MUTATION para cambiar informacion de los proyectos activos */
+        editarProyecto:  async(parent,args)=>{
+            if(Object.keys(args.estado==='ACTIVO')){ 
+                const proyectoEditado= await ProyectoModel.findByIdAndUpdate(args._id,{
+                    nombre:args.nombre,
+                    presupuesto:args.presupuesto,            
+                },
+                    {new:true}  
+                );
+                return proyectoEditado; 
+            }    
+        },        
+        /* HU_014:Como LIDER, MUTATION para cambiar informacion de los proyectos activos */
         editarObjetivo: async(parents,args)=>{
             const proyectoEditado=await ProyectoModel.findByIdAndUpdate(args.idProyecto,{
                 $set:{
@@ -67,7 +85,8 @@ const resolversProyecto ={
             },{new:true}); 
             return proyectoEditado; 
         },
-
+        
+        /* HU_014:Como LIDER, MUTATION para cambiar informacion de los proyectos activos */
         eliminarObjetivo: async(parents,args)=>{
             const proyectoEditado=await ProyectoModel.findByIdAndUpdate(args.idProyecto,{
                 $pull:{

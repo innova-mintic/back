@@ -7,6 +7,7 @@ const proyectoSchema = new Schema ({
     nombre:{
         type:String,
         required:true,
+        unique:true,
     },
     presupuesto:{
         type:String,
@@ -55,7 +56,7 @@ const proyectoSchema = new Schema ({
     }
 );
 
-/* Los virtual se hacen en la parte many de la relacion */
+/* Los virtual se hacen en la parte ONE de la relacion */
 proyectoSchema.virtual("avances",{
     ref:"Avance",
     localField:"_id",

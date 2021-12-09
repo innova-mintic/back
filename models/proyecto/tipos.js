@@ -49,7 +49,8 @@ const tiposProyecto= gql`
 
         Proyectos:[Proyecto]
         Proyecto(_id:String!):Proyecto
-        ProyectosLiderados:[Proyecto]
+        FiltrarProyectoPorLider(_id:String!):[Proyecto]
+        
     }
 
     type Mutation{
@@ -65,13 +66,19 @@ const tiposProyecto= gql`
             objetivos:[crearObjetivo]
         ):Proyecto
 
+        crearObjetivo(idProyecto:String!, campos:camposObjetivo!):Proyecto
+
         aprobarProyecto(
             _id:String!,
             estado: Enum_EstadoProyecto!
             fase: Enum_FaseProyecto!
         ):Proyecto
 
-        crearObjetivo(idProyecto:String!, campos:camposObjetivo!):Proyecto
+        editarProyecto(
+            _id:String!,
+            nombre: String!
+            presupuesto:String!
+        ):Proyecto
 
         editarObjetivo(idProyecto:String!,indexObjetivo:Int!,campos:camposObjetivo!):Proyecto
 

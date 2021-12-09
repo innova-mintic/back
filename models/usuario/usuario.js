@@ -46,6 +46,18 @@ const usuarioSchema = new Schema({
     }
 });
 
+usuarioSchema.virtual("inscripciones",{
+    ref:"Inscripcion",
+    localField:"_id",
+    foreignField: "estudiante",
+})
+
+usuarioSchema.virtual("proyectosLiderados",{
+    ref:"Proyecto",
+    localField:"_id",
+    foreignField: "lider",
+})
+
 
 const UsuarioModel = model('Usuario',usuarioSchema,"usuarios");
 

@@ -5,7 +5,11 @@ const resolversUsuario ={
     Query:{
         /* HU_004:Como ADMINISTRADOR, QUERY para ver la información de los usuarios registrados en la plataforma */
         Usuarios: async (parent,args)=>{
-            const usuarios=await UsuarioModel.find();
+            const usuarios=await UsuarioModel.find().populate([
+                {path:'inscripciones',populate:{path:'proyecto',populate:{path:'lider'}}},
+                {path:'proyectosLiderados'} 
+            ])
+               
             return usuarios;
         },
 
@@ -19,9 +23,26 @@ const resolversUsuario ={
             const estudiantes=await UsuarioModel.find({rol:'ESTUDIANTE'});
             return estudiantes;
         },
-        
+
+        /* HU_013:Como LIDER, QUERY para ver la lista de proyectos que se lideran */
+        ProyectosLiderados: async(parent,args)=>{
+            const proyectosLiderados=await UsuarioModel.findOne({_id:args._id}).populate('proyectosLiderados');
+            return proyectosLiderados;
+        },
+
+        /* HU_015:Como LIDER, QUERY para ver solicitudes de inscripcion de los estudiantes a los proyectos */
+        SolicitudesInscripcion: async (parent,args)=>{
+            const solicitudesInscripcion=await UsuarioModel.findOne({_id:args._id}).populate([
+                {path:'proyectosLiderados',populate:{path:'inscripciones',populate:{path:'estudiante'}}}
+
+            ]);
+            return solicitudesInscripcion;
+        },
+
+
 
     },
+        
     Mutation:{
         crearUsuario:async(parent,args)=>{
             const usuarioCreado=await UsuarioModel.create({
@@ -38,6 +59,7 @@ const resolversUsuario ={
 
             return  usuarioCreado;
         },
+        
         eliminarUsuario: async(parent,args)=>{
             if(Object.keys(args).includes('_id')){
                 const usuarioEliminado=UsuarioModel.findOneAndDelete
@@ -79,12 +101,14 @@ const resolversUsuario ={
 
         /* HU_011:Como LIDER, MUTATION para cambiar el estado de un estudiante */
         editarEstudiante:  async(parent,args)=>{
-            const estudianteEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
-                estado:args.estado,              
-            },
-                {new:true}  
-            );
-            return estudianteEditado;     
+            if(Object.keys(args.rol==='ESTUDIANTE')){ 
+                const estudianteEditado= await UsuarioModel.findByIdAndUpdate(args._id,{
+                    estado:args.estado,              
+                },
+                    {new:true}  
+                );
+                return estudianteEditado; 
+            }    
         },
 
 

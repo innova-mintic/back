@@ -10,12 +10,16 @@ const tiposUsuario= gql`
         correo:String!
         estado:Enum_EstadoUsuario
         rol:Enum_Rol!
+        inscripciones:[Inscripcion]
+        proyectosLiderados:[Proyecto]
     }
 
     type Query{
         Usuarios:[Usuario]
         Usuario(_id:String!):Usuario
         Estudiantes:[Usuario]
+        ProyectosLiderados(_id:String!):Usuario
+        SolicitudesInscripcion(_id:String!):Usuario
     }
 
     type Mutation{
