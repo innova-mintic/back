@@ -6,9 +6,8 @@ import conectarBD from './db/db.js';
 import {tipos} from './graphql/tipos.js'
 import {resolvers } from './graphql/resolvers.js'
 
-import jwt from 'express-jwt'
-import jwks from 'jwks-rsa'
-
+import jwt from 'express-jwt';
+import jwks from 'jwks-rsa';
 
 dotenv.config();
 
@@ -53,7 +52,6 @@ app.get('/inicio', jwtCheck, (req, res) => {
       }
     })
   });*/
-
 
 
 app.listen({port:process.env.PORT || 4000},async()=>{
