@@ -33,7 +33,26 @@ var jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use(jwtCheck);
+app.get('/inicio', jwtCheck, (req, res) => {
+    res.send('Secured Resource');
+});
+
+/*app.get('/usuarios/self' , jwtCheck, (req, res, next) => {
+    console.log('alguien hizo get en la ruta /self');
+    const token = req.headers.authorization.split('Bearer')[1];
+    const user =  jwt_decode(token)['http://localhost/userData'];
+    console.log(user);
+    baseDeDatos.collection('usuario').findOne({email: user.email}, async (err, response) => {
+      if(response){
+        console.log('response consulta base de datos', response);
+        res.json(response);
+      }
+      else{
+        next();
+      }
+    })
+  });*/
+
 
 app.listen({port:process.env.PORT || 4000},async()=>{
     await conectarBD();
