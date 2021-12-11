@@ -33,11 +33,9 @@ const resolversProyecto ={
         crearProyecto: async(parent,args)=>{
             const proyectoCreado= await ProyectoModel.create({
                 nombre:args.nombre,
-                estado:args.estado,
-                fase:args.fase,
+                presupuesto:args.presupuesto,
                 fechaInicio:args.fechaInicio,
                 fechaFin:args.fechaFin,
-                presupuesto:args.presupuesto,
                 objetivos:args.objetivos,
                 lider:args.lider,
             });

@@ -55,11 +55,6 @@ const tiposUsuario= gql`
             identificacion:String!
             correo:String!
         ):Usuario
-
-
-
-
-
     }
 `;
 

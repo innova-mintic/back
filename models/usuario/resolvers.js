@@ -9,7 +9,6 @@ const resolversUsuario ={
                 {path:'inscripciones',populate:{path:'proyecto',populate:{path:'lider'}}},
                 {path:'proyectosLiderados'} 
             ])
-               
             return usuarios;
         },
 
@@ -38,9 +37,6 @@ const resolversUsuario ={
             ]);
             return solicitudesInscripcion;
         },
-
-
-
     },
         
     Mutation:{
