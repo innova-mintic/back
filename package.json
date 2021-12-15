@@ -5,8 +5,8 @@
   "repository": "https://github.com/innova-mintic/back.git",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "type": "module",
   "dependencies": {
