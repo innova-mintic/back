@@ -20,7 +20,7 @@ const app= express();
 app.use(express.json());
 app.use(cors());
 
-var jwtCheck = jwt({
+/* var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
       cache: true,
       rateLimit: true,
@@ -50,7 +50,7 @@ app.get('/usuarios/self' , jwtCheck, (req, res, next) => {
       next();
     }
   })
-});
+}); */
 
 
 app.listen({port:process.env.PORT || 4000},async()=>{

@@ -1,20 +1,28 @@
 import { ProyectoModel } from "./proyecto.js";
-
+import { InscripcionModel } from "../inscripcion/inscripcion.js";
 
 const resolversProyecto ={
+
+    Proyecto:{
+            inscripciones:async (parent,args)=>{
+                const inscripciones=await InscripcionModel.find({proyecto:parent._id});
+                return inscripciones;
+            },
+    },
 
     Query:{
 
         /* HU_006:Como ADMINISTRADOR, QUERY para ver la lista de proyectos registrados */
         Proyectos: async(parent,args)=>{
             const proyectos=await ProyectoModel.find().populate([
-                { path:'lider'},{ path:'avances'},{path:'inscripciones', populate:{path:'estudiante'}},
+                { path:'lider'},{ path:'avances'},
             ])
             return proyectos;
         },
 
         Proyecto: async(parent,args)=>{
             const proyecto=await ProyectoModel.findOne({_id:args._id}).populate('lider').populate('avances');
+
             return proyecto;
         },
 
@@ -36,7 +44,8 @@ const resolversProyecto ={
                 presupuesto:args.presupuesto,
                 fechaInicio:args.fechaInicio,
                 fechaFin:args.fechaFin,
-                objetivos:args.objetivos,
+                objetivoGeneral:args.objetivoGeneral,
+                objetivosEspecificos:args.objetivosEspecificos,
                 lider:args.lider,
             });
             return proyectoCreado;
