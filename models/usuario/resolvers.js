@@ -13,7 +13,7 @@ const resolversUsuario ={
         },
 
         Usuario: async(parent,args)=>{
-            const usuario=await UsuarioModel.findOne({_id:args._id});
+            const usuario=await UsuarioModel.findOne({_id:args._id}).populate('inscripciones');
             return usuario;
         },
 

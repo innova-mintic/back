@@ -11,7 +11,6 @@ const inscripcionSchema=new Schema({
         type:String,
         default:"PENDIENTE",
         enum:["ACEPTADO","RECHAZADO","PENDIENTE"],
-    
     },
     fechaIngreso:{
         type:Date,

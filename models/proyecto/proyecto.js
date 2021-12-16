@@ -36,20 +36,22 @@ const proyectoSchema = new Schema ({
         required:true,
         ref:UsuarioModel,
     },
-    objetivos:[
+    objetivoGeneral:{
+        type:String,
+        required:true
+    },
+    objetivosEspecificos:[
         {
             descripcion:{
-                type:String,
-                required:true,
-            },
-            tipo:{
-                type:String,
-                enum:["GENERAL","ESPECIFICO"],
-                required:true,
-            },
-        },
+                type:String,  
+                required:true       
+            }
+        }
     ],
+
     },
+
+
     {
         toJSON:{virtuals:true},
         toObject:{virtuals:true}
