@@ -7,7 +7,7 @@ const tiposInscripcion= gql`
         estado: Enum_EstadoInscripcion
         fechaIngreso:Date
         fechaEgreso:Date
-        proyecto:Proyecto!
+        proyecto(lider:String):Proyecto!
         estudiante:Usuario!
     }
 
