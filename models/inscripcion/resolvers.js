@@ -56,7 +56,7 @@ const resolversInscripcion={
         /* HU_016:Como LIDER, MUTATION para aceptar la inscripciones de un estudiante */
         aprobarInscripcion: async (parent,args)=>{
             const inscripcionAprobada= await InscripcionModel.findByIdAndUpdate(args._id,{
-                estado:"ACEPTADO",
+                estado:args.estado,
                 fechaIngreso:Date.now(),
             },
                 {new:true}
