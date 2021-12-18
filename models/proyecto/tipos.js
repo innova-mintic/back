@@ -14,6 +14,10 @@ const tiposProyecto= gql`
         descripcion:String!,     
     }
 
+    input camposObjetivo {
+        descripcion: String!
+     }
+
     type Proyecto{
         _id:ID!
         nombre:String!
@@ -58,11 +62,12 @@ const tiposProyecto= gql`
             _id:String!,
             nombre: String!
             presupuesto:String!
+            objetivoGeneral: String!
         ):Proyecto
 
-        crearObjetivo(idProyecto:String!, descripcion:String!,tipo:Enum_TipoObjetivo!):Proyecto
+        crearObjetivo(idProyecto:String!, campos:camposObjetivo!):Proyecto
 
-        editarObjetivo(idProyecto:String!,indexObjetivo:Int!,descripcion:String!,tipo:Enum_TipoObjetivo!):Proyecto
+        editarObjetivo(idProyecto:String!,indexObjetivo:Int!,descripcion:String!):Proyecto
 
         eliminarObjetivo(idProyecto:String!,idObjetivo:String!):Proyecto
 

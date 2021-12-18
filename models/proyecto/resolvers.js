@@ -75,7 +75,8 @@ const resolversProyecto ={
             if(Object.keys(args.estado==='ACTIVO')){ 
                 const proyectoEditado= await ProyectoModel.findByIdAndUpdate(args._id,{
                     nombre:args.nombre,
-                    presupuesto:args.presupuesto,            
+                    presupuesto:args.presupuesto, 
+                    objetivoGeneral:args.objetivoGeneral           
                 },
                     {new:true}  
                 );

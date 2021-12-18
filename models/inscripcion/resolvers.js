@@ -27,6 +27,16 @@ const resolversInscripcion={
             }
             const inscripciones=await InscripcionModel.find({...filtro});
             return inscripciones;
+        },
+        
+        FiltrarInscripcionPorEstudiante:async(parent,args)=>{
+            const filtrarInscripcionPorEstudiante=await InscripcionModel.find({'estudiante':args._id});
+            return filtrarInscripcionPorEstudiante;
+        },
+
+        FiltrarInscripcion:async(parent,args)=>{
+            const filtrarInscripcion=await InscripcionModel.findOne({_id:args._id});
+            return filtrarInscripcion;
         }
     },
 
