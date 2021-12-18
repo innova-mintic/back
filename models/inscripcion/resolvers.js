@@ -7,10 +7,10 @@ const resolversInscripcion={
 
     Inscripcion:{
         proyecto: async(parent,args)=>{
-            return await ProyectoModel.findOne({_id:parent.proyecto});
+            return await ProyectoModel.findOne({_id:parent.proyecto}).populate('lider');
         },
         estudiante: async(parent,args)=>{
-            return await UsuarioModel.findOne({_id:parent.estudiante});
+            return await UsuarioModel.findOne({_id:parent.estudiante}).populate('inscripciones');
         }
     },
 
