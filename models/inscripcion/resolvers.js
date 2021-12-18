@@ -7,10 +7,10 @@ const resolversInscripcion={
 
     Inscripcion:{
         proyecto: async(parent,args)=>{
-            return await ProyectoModel.findOne({_id:parent.proyecto});
+            return await ProyectoModel.findOne({_id:parent.proyecto}).populate('lider');
         },
         estudiante: async(parent,args)=>{
-            return await UsuarioModel.findOne({_id:parent.estudiante});
+            return await UsuarioModel.findOne({_id:parent.estudiante}).populate('inscripciones');
         }
     },
 
@@ -27,6 +27,16 @@ const resolversInscripcion={
             }
             const inscripciones=await InscripcionModel.find({...filtro});
             return inscripciones;
+        },
+        
+        FiltrarInscripcionPorEstudiante:async(parent,args)=>{
+            const filtrarInscripcionPorEstudiante=await InscripcionModel.find({'estudiante':args._id});
+            return filtrarInscripcionPorEstudiante;
+        },
+
+        FiltrarInscripcion:async(parent,args)=>{
+            const filtrarInscripcion=await InscripcionModel.findOne({_id:args._id});
+            return filtrarInscripcion;
         }
     },
 
@@ -46,7 +56,7 @@ const resolversInscripcion={
         /* HU_016:Como LIDER, MUTATION para aceptar la inscripciones de un estudiante */
         aprobarInscripcion: async (parent,args)=>{
             const inscripcionAprobada= await InscripcionModel.findByIdAndUpdate(args._id,{
-                estado:"ACEPTADO",
+                estado:args.estado,
                 fechaIngreso:Date.now(),
             },
                 {new:true}
